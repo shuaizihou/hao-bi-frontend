@@ -4,6 +4,7 @@ import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
+import {getLoginUserUsingGet} from "@/services/hao-bi/userController";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -16,9 +17,7 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
+      const msg = await getLoginUserUsingGet();
       return msg.data;
     } catch (error) {
       history.push(loginPath);
